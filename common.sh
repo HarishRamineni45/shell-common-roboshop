@@ -10,6 +10,7 @@ N="\e[0m"
 SCRIPT_DIR=$PWD
 START_TIME=$(date +%s)
 MONGODB_HOST=mongodb.daws88.site
+MYSQL_HOST=mysql.daws.site
 
 mkdir -p $LOGS_FOLDER
 
@@ -89,6 +90,20 @@ app_restart(){
     VALIDATE $? "Restarting $app_name"
 }
 
+
+java_setup(){
+
+    dnf install maven -y &>>$LOGS_FILE
+    VALIDATE $? "Installing Maven"
+
+    cd /app 
+    mvn clean package &>>$LOGS_FILE
+    VALIDATE $? "Installing and Building $app_name"
+
+    mv target/$app_name-1.0.jar $app_name.jar 
+    VALIDATE $? "Moving and Renaming $app_name"
+
+}
 
 print_total_time(){
     END_TIME=$(date +%s)
