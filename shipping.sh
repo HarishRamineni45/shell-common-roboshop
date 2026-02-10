@@ -1,3 +1,4 @@
+
 #!/bin/bash
 
 source ./common.sh
@@ -7,7 +8,6 @@ check_root
 app_setup
 java_setup
 systemd_setup
-
 
 dnf install mysql -y  &>>$LOGS_FILE
 VALIDATE $? "Installing MySQL"
@@ -25,4 +25,3 @@ fi
 
 app_restart
 print_total_time
-
